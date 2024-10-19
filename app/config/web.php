@@ -5,16 +5,21 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Application',
+    'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
+        '@vendor' => dirname(__DIR__, 2) . '/vendor',
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'QIHFE45Q3yCtRo3M8bfWhEchedYWcycD',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -42,14 +47,38 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // need for right canonical
+                '' => 'site/index',
+                // for Site controller
+                '<alias:\w+>' => 'site/<alias>',
             ],
         ],
-        */
+        'assetManager' => [
+            // 'linkAssets' => true, // For symlinks
+            # Замена стандартных библиотек jQuery
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,   // не публиковать пакет
+                    'js' => [
+                        // Last working from CDN
+                        'https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js',
+
+                    ]
+                ],
+                'yii\widgets\PjaxAsset' => [
+                    'sourcePath' => null,   // не публиковать пакет
+                    'js' => [
+                        'https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js',
+                    ]
+                ],
+            ],
+        ],
+
     ],
     'params' => $params,
 ];
