@@ -9,7 +9,10 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use kartik\icons\FontAwesomeAsset;
 
+
+FontAwesomeAsset::register($this);
 AppAsset::register($this);
 
 $this->registerCsrfMetaTags();
@@ -39,8 +42,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'О проекте', 'url' => ['/site/about']] 
+            ['label' => 'О проекте', 'url' => ['site/about']] ,
+            ['label' => 'Обращения', 'url' => ['guest-book/index']] 
         ]
     ]);
     NavBar::end();
