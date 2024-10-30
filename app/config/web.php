@@ -6,6 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'name' => 'Гостевая книга',
+    'defaultRoute' => 'guest-book/create',
     'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -13,7 +14,7 @@ $config = [
         '@vendor' => dirname(__DIR__, 2) . '/vendor',
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
-    ],
+    ],  
     'components' => [
         'request' => [
             'cookieValidationKey' => 'QIHFE45Q3yCtRo3M8bfWhEchedYWcycD',
@@ -47,10 +48,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                // need for right canonical
-                '' => 'site/index',
-                // for Site controller
-                '<alias:\w+>' => 'site/<alias>',
+               '<action>' => 'site/<action>',
             ],
         ],
         'assetManager' => [
@@ -73,7 +71,12 @@ $config = [
                 ],
             ],
         ],
-
+    ],
+    'modules'=>
+    [
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ]
     ],
     'params' => $params,
 ];
