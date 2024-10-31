@@ -75,7 +75,12 @@ $config = [
     'modules'=>
     [
         'gridview' =>  [
-            'class' => '\kartik\grid\Module'
+            'class' => '\kartik\grid\Module',
+            'i18n' => [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => '@kvgrid/messages',
+                'forceTranslation' => true
+            ]
         ]
     ],
     'params' => $params,
