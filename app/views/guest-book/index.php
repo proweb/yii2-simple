@@ -13,7 +13,8 @@ use kartik\grid\GridView;
 
 
 
-$this->title = 'Обращения 1';
+$this->title = 'Обращения';
+$this->params['breadcrumbs'][] = 'Результаты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="guestbook-index">
@@ -21,18 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Guestbook', ['create'], ['class' => 'btn btn-success']) ?>
+        в таблице то что было отправлено через форму на сегодняшний день
     </p>
 
     <?php $columns = [
         [
-            'class'=>'kartik\grid\SerialColumn',
-            'contentOptions'=>['class'=>'kartik-sheet-style'],
-            'width'=>'50px',
-            'pageSummary'=>'Total',
+            'class' => 'kartik\grid\SerialColumn',
+            'contentOptions' => ['class' => 'kartik-sheet-style'],
+            'width' => '50px',
+            'pageSummary' => 'Total',
             'pageSummaryOptions' => ['colspan' => 6],
-            'header'=>'',
-            'headerOptions'=>['class'=>'kartik-sheet-style']
+            'header' => '',
+            'headerOptions' => ['class' => 'kartik-sheet-style']
         ],
         'name',
         'email:email',
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ];
 
     echo GridView::widget([
-        'id' => 'kv-grid-1',
+        'id' => 'kgrid1',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $columns,
@@ -68,26 +69,30 @@ $this->params['breadcrumbs'][] = $this->title;
             'after' => '<div class="float-right float-end"></div>',
             'heading' => '<i class="fas fa-book"></i> Обращения граждан',
             'type' => 'light',
-            'before' => '<div style="padding-top: 7px;"><em>* Resize table columns just like a spreadsheet by dragging the column edges.</em></div>',
+            'before' => '<div style="padding-top: 7px;"><em>* В таблице показаны обращения граждан</em></div>',
         ],
         // set export properties
         'export' => [
-            'fontAwesome' => true
+            'fontAwesome' => true,
+            
         ],
         'exportConfig' => [
             'html' => [],
-            'csv' => [],       
+            'csv' => [],
             'xls' => [],
-           
+
         ],
         // set your toolbar
-        'toolbar' =>  [        
-            '{export}',
+        'toolbar' => [
+            [ 'content' => Html::a('<i class="fas fa-plus"></i> Добавить', URL::to(['guest-book/create']), ['class' => 'btn btn-success me-2']),
+                   
+            ],
+            '{export}'
         ],
         'toggleDataContainer' => ['class' => 'btn-group mr-2 me-2'],
         'persistResize' => false,
         'toggleDataOptions' => ['minCount' => 10],
-  
+
     ]); ?>
 
 
