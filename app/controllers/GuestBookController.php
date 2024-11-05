@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\db\Guestbook;
-use app\models\db\GuestbookSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\db\Guestbook;
+use yii\filters\AccessControl;
+use app\models\db\GuestbookSearch;
+use yii\web\NotFoundHttpException;
 
 /**
  * GuestBookController implements the CRUD actions for Guestbook model.
@@ -25,6 +26,18 @@ class GuestBookController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+            ],
+            [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['index', 'view', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
             ]
@@ -132,5 +145,9 @@ class GuestBookController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function actionLogin(){
+
+        return 'Login guestbook';
     }
 }
