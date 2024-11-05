@@ -14,7 +14,7 @@ $config = [
         '@vendor' => dirname(__DIR__, 2) . '/vendor',
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
-    ],  
+    ],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'QIHFE45Q3yCtRo3M8bfWhEchedYWcycD',
@@ -24,6 +24,11 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'user' => [
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true,
+            "loginUrl" => ["site/login"]
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -48,7 +53,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-               '<action>' => 'site/<action>',
+                '<action>' => 'site/<action>',
             ],
         ],
         'assetManager' => [
@@ -72,17 +77,17 @@ $config = [
             ],
         ],
     ],
-    'modules'=>
-    [
-        'gridview' =>  [
-            'class' => '\kartik\grid\Module',
-            'i18n' => [
-                'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@kvgrid/messages',
-                'forceTranslation' => true
+    'modules' =>
+        [
+            'gridview' => [
+                'class' => '\kartik\grid\Module',
+                'i18n' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@kvgrid/messages',
+                    'forceTranslation' => true
+                ]
             ]
-        ]
-    ],
+        ],
     'params' => $params,
 ];
 
