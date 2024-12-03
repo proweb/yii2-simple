@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use app\models\db\Guestbook;
 use yii\helpers\Html;
@@ -18,14 +18,11 @@ $this->params['breadcrumbs'][] = 'Результаты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="guestbook-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        в таблице то что было отправлено через форму на сегодняшний день
-    </p>
-
-    <?php $columns = [
+    <?php // GridView - Kartik
+    
+    $columns = [
         [
             'class' => 'kartik\grid\SerialColumn',
             'contentOptions' => ['class' => 'kartik-sheet-style'],
@@ -39,11 +36,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'email:email',
         'message:html',
         'created_at:datetime',
-        [
-            'class' => ActionColumn::className(),
+        'updated_at:datetime',
+        [ # Actions with buttons
+            'class' => ActionColumn::class,
+            'template' => '
+            <div class="btn-group-vertical" role="group" >
+             {view} {update} {delete}
+             </div>
+             '
+            ,
+            'buttons' => [
+                'view' => function ($url, $model) {
+                    return Html::a('Просмотр', $url, ['class' => 'btn btn-primary']);
+                },
+                'update' => function ($url, $model) {
+                    return Html::a('Изменить', $url, ['class' => 'btn btn-success']);
+                },
+                'delete' => function ($url, $model) {
+                    return Html::a('Удалить', $url, ['class' => 'btn btn-danger']);
+                },
+
+            ],
             'urlCreator' => function ($action, Guestbook $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                return Url::toRoute([$action, 'id' => $model->id]);
+            }
         ],
     ];
 
@@ -74,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
         // set export properties
         'export' => [
             'fontAwesome' => true,
-            
+
         ],
         'exportConfig' => [
             'html' => [],
@@ -84,8 +100,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         // set your toolbar
         'toolbar' => [
-            [ 'content' => Html::a('<i class="fas fa-plus"></i> Добавить', URL::to(['guest-book/create']), ['class' => 'btn btn-success me-2']),
-                   
+            [
+                'content' => Html::a('<i class="fas fa-plus"></i> Добавить', URL::to(['guest-book/create']), ['class' => 'btn btn-success me-2']),
+
             ],
             '{export}'
         ],
