@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1); 
 
 use yii\db\Migration;
 use yii\db\Schema;
@@ -18,7 +18,8 @@ class m241024_194703_create_guestbook_table extends Migration
             'name' => Schema::TYPE_STRING,
             'email' => Schema::TYPE_STRING . ' NOT NULL',            
             'message' => Schema::TYPE_TEXT . ' NOT NULL',
-            'created_at' => Schema::TYPE_INTEGER . ' NOT NULL'
+            'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
         ]);
     }
 
