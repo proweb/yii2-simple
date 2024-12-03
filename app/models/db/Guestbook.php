@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1); 
 
 namespace app\models\db;
 
+use app\components\AbstractActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
-
+ 
+ 
 /**
  * This is the model class for table "guestbook".
  *
@@ -13,21 +14,11 @@ use yii\db\ActiveRecord;
  * @property string $email
  * @property string $message
  * @property int $created_at
+ * @property int $updated_at
  */
-class Guestbook extends ActiveRecord
+class Guestbook extends AbstractActiveRecord
 {
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
-                ],
-                'value' => time(), // тут вставляем нужную функцию генерации даты (может быть и просто `time()`)
-            ],
-        ];
-     }
+  
     /**
      * {@inheritdoc}
      */
